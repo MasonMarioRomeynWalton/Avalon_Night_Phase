@@ -1,0 +1,93 @@
+{
+    "people": 10,
+    "cards":
+    [
+        [
+            {
+                "text" : "Loyal Servant of Arthur",
+                "prop" : ["Loyal Servant of Arthur"],
+                "alignment" : "good"
+            },
+            {
+                "text" : "Loyal Servant of Arthur",
+                "prop" : ["Loyal Servant of Arthur"],
+                "alignment" : "good"
+            },
+            {
+                "text" : "Loyal Servant of Arthur",
+                "prop" : ["Loyal Servant of Arthur"],
+                "alignment" : "good"
+            },
+            {
+                "text" : "Cleric",
+                "prop" : ["Cleric"],
+                "alignment" : "good"
+            },
+            {
+                "text" : "Percival",
+                "prop" : ["Percival"],
+                "alignment" : "good"
+            },
+            {
+                "text" : "Merlin",
+                "prop" : ["Merlin", "appears-as-merlin"],
+                "alignment" : "good"
+            },
+            {
+                "text" : "Oberon",
+                "prop" : ["Oberon", "visible-evil"],
+                "alignment" : "evil"
+            },
+            {
+                "text" : "Assassin",
+                "prop" : ["Assassin", "visible-evil", "knowing-evil"],
+                "alignment" : "evil"
+            },
+            {
+                "text" : "Morgana",
+                "prop" : ["Morgana", "appears-as-merlin", "visible-evil", "knowing-evil"],
+                "alignment" : "evil"
+            },
+            {
+                "text" : "Mordred",
+                "prop" : ["Mordred", "knowing-evil"],
+                "alignment" : "evil"
+            }
+        ],
+        [
+            {
+                "text" : "first",
+                "prop" : ["first"]
+            },
+            {
+                "text" : "second",
+                "prop" : ["second"]
+            }
+        ]
+    ],
+    "knowledge":
+    [
+        {
+            "needs": ["knowing-evil"],
+            "sees": ["knowing-evil"]
+        },
+        {
+            "needs": ["Merlin"],
+            "sees" : ["visible-evil"]
+        },
+        {
+            "needs": ["Percival"],
+            "sees": ["appears-as-merlin"]
+        },
+        {
+            "needs": ["Cleric"],
+            "sees": ["first"],
+            "info": ["alignment"]
+        },
+        {
+            "needs": ["Cleric","first"],
+            "sees": ["second"],
+            "info": ["alignment"]
+        }
+    ]
+}
