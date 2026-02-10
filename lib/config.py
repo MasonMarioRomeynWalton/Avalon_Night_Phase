@@ -2,8 +2,9 @@ from random import shuffle,choice
 import json
 
 
-def create_info(names):
-    file = open("./cleric.json", 'r')
+def create_config_info(names):
+    #TODO: update this to be enterable
+    file = open("lib/cleric.json", 'r')
     data = json.load(file)
 
 
@@ -42,15 +43,22 @@ def create_info(names):
     # Conglomerates properties and attributes for players
     player_props = {}
     player_attributes = {}
+    for name in players:
+        player_attributes[name] = {}
+
     for name, player_data in players.items():
         props = set
         for card in player_data:
+            # Accumulate properties
             props = props.union(set(card["prop"]))
+
+            # Set attributes.
             for description, attribute in card.items():
                 if description != "prop":
-                    if name not in player_attributes:
-                        player_attributes[name] = {}
+                    # Note if multiple attributes are listed in 
+                    #   multiple cards they will overwrite eachother
                     player_attributes[name][description] = attribute
+
         player_props[name] = props
 
 
@@ -63,27 +71,28 @@ def create_info(names):
             #   The players with all of the properties in sight["needs"] will see that they have 
             #   said properties and see any listed attributes that are seen with them
             if  set(sight["sees"]) <= player_props[name]:
-                text += "You see " + name + " has/is"
+                text += "You see " + name + " is"
                 for prop in sight["sees"]:
                     text += ", " + prop 
                 text += ". "
                 if "info" in sight:
                     for description in sight["info"]:
-                        text += "You see that for " + description + " they are/have " + player_attributes[name][description]
+                        text += "You see that for " + description + " they are " + player_attributes[name][description]
                 text += "<br>";
         knowledge.append((set(sight["needs"]),text))
 
+    # Construct information
     information = {}
     for name in names:
         information[name] = ""
+
         # Tells players what they have
         for card in players[name]:
             information[name] += "You are " + card["text"] + "!<br>"
-        # Give info to those who have the needed properties
+
+        # Give info to those who meet the needed properties
         for sight in knowledge:
             if sight[0] <= player_props[name]:
                 information[name]+= sight[1]
     
     return information
-
-#print(create_info(["a","b","c","d","e","f","g","h","i","j"]))

@@ -2,6 +2,7 @@
 from flask import *
 from random import shuffle
 from lib import information
+from lib import config
 import time
                                                                                 
 app = Flask(__name__)                                                           
@@ -31,7 +32,7 @@ def main():
           players.append(name)
           ## If everyone has joined create the information
           if len(players) == number_of_players:
-              player_information = information.create_info(players)
+              player_information = config.create_config_info(players)
           return 'You succesfully join'
 
     ## If in the info phase

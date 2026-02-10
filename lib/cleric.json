@@ -88,6 +88,14 @@
             "needs": ["Cleric","first"],
             "sees": ["second"],
             "info": ["alignment"]
+        },
+        {
+            "needs": [],
+            "sees": ["first"]
+        },
+        {
+            "needs": [],
+            "sees": ["second"]
         }
     ]
 }
