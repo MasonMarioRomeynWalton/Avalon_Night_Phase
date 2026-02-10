@@ -23,8 +23,9 @@ def main():
     if number_of_players > len(players):
 
       ## Your name here will be the example name when the formatting is sent in chat
-      if name == 'your_name_here':
-          return 'Put your name where it says your_name_here'
+      if name == 'your_name_here' or not name:
+          with open('lib/join_form.html', 'r') as f:
+              return f.read()
       if name in players:
           return 'That name is already taken'
       else:
@@ -44,6 +45,8 @@ def main():
       players_with_info_delivered.append(name)
 
       return str(player_information[name])
+
+
 
 if __name__ == '__main__':                                                      
     app.run(host='0.0.0.0', port=5000, debug=True, threaded=False)  
