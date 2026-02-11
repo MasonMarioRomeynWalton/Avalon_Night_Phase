@@ -1,8 +1,7 @@
 #!/bin/python3                                                                  
 from flask import *
 from random import shuffle
-from lib import information
-from lib import config
+from lib import information, pass_key, config
 import time
                                                                                 
 app = Flask(__name__)                                                           
@@ -13,6 +12,7 @@ number_of_players = 10
 
 ## The names of the players
 players = []
+pass_keys = {}
 players_with_info_delivered = []
 
 @app.route('/')
@@ -24,8 +24,9 @@ def main():
     if number_of_players > len(players):
 
       ## Your name here will be the example name when the formatting is sent in chat
-      if name == 'your_name_here':
-          return 'Put your name where it says your_name_here'
+      if name == 'your_name_here' or not name:
+          with open('lib/join_form.html', 'r') as f:
+              return f.read()
       if name in players:
           return 'That name is already taken'
       else:
@@ -33,18 +34,41 @@ def main():
           ## If everyone has joined create the information
           if len(players) == number_of_players:
               player_information = config.create_config_info(players)
-          return 'You succesfully join'
+
+          ## Generate pass_key for player
+          generated_pass = pass_key.generate_pass_key()
+          pass_keys[generated_pass] = name
+
+          ## Return message with js to store pass key locally in session data
+          return 'You succesfully join' + pass_key.pass_key_js(generated_pass);
 
     ## If in the info phase
     else:
       if name not in players:
           return 'You are not playing'
-      if name in players_with_info_delivered:
-          return 'Someone has already gotten your information'
 
-      players_with_info_delivered.append(name)
+      ## java script to retrieve pass key and get information from info/
+      return pass_key.retrieve_info_with_pass_key_js()
 
-      return str(player_information[name])
+# Gives the info
+@app.route('/info')
+def info():
+    pass_key = request.args.get('pass_key')
+    if pass_key:
+        if pass_key in pass_keys:
+            name = pass_keys[pass_key]
+            # Keep track of players who have recieved info
+            if name not in players_with_info_delivered:
+                players_with_info_delivered.append(name)
+
+            # Return info for player with given pass_key
+            return str(player_information[name])
+        else:
+            return 'Your game has expired'
+    else:
+        return 'Please visit the home page with your name to get info'
+
+
 
 if __name__ == '__main__':                                                      
     app.run(host='0.0.0.0', port=5000, debug=True, threaded=False)  
