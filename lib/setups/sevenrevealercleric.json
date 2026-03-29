@@ -1,0 +1,86 @@
+{
+    "people": 7,
+    "cards":
+    [
+        [
+            {
+                "text" : "Good Sorcerer",
+                "prop" : ["Good Sorcerer"],
+                "alignment" : "good"
+            },
+            {
+                "text" : "Cleric",
+                "prop" : ["Cleric"],
+                "alignment" : "good"
+            },
+            {
+                "text" : "Percival",
+                "prop" : ["Percival"],
+                "alignment" : "good"
+            },
+            {
+                "text" : "Merlin",
+                "prop" : ["Merlin", "appears-as-merlin"],
+                "alignment" : "good"
+            },
+            {
+                "text" : "Oberon",
+                "prop" : ["Oberon", "visible-evil"],
+                "alignment" : "evil"
+            },
+            {
+                "text" : "Revealer",
+                "prop" : ["Revealer", "visible-evil", "knowing-evil"],
+                "alignment" : "evil"
+            },
+            {
+                "text" : "Morgana",
+                "prop" : ["Morgana", "appears-as-merlin", "visible-evil", "knowing-evil"],
+                "alignment" : "evil"
+            }
+        ],
+        [
+            {
+                "text" : "first",
+                "prop" : ["first"]
+            },
+            {
+                "text" : "second",
+                "prop" : ["second"]
+            }
+        ]
+    ],
+    "knowledge":
+    [
+        {
+            "needs": ["knowing-evil"],
+            "sees": ["knowing-evil"]
+        },
+        {
+            "needs": ["Merlin"],
+            "sees" : ["visible-evil"]
+        },
+        {
+            "needs": ["Percival"],
+            "sees": ["appears-as-merlin"]
+        },
+        {
+            "needs": ["Cleric"],
+            "sees": ["first"],
+            "info": ["alignment"]
+        },
+        {
+            "needs": ["Cleric","first"],
+            "sees": ["second"],
+            "info": ["alignment"]
+        },
+        {
+            "needs": [],
+            "sees": ["first"]
+        },
+        {
+            "needs": [],
+            "sees": ["second"]
+        }
+    ]
+}

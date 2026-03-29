@@ -4,7 +4,7 @@ import json
 
 def create_config_info(names):
     #TODO: update this to be enterable
-    file = open("lib/cleric.json", 'r')
+    file = open("lib/setups/cleric.json", 'r')
     data = json.load(file)
 
 
