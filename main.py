@@ -82,7 +82,7 @@ def info():
         ## If they don't submit a name, promt them
         if not name:
             with open('lib/join_form.html', 'r') as f:
-            return f.read()
+                return f.read()
 
         else:
             if name not in players_with_info_delivered:
